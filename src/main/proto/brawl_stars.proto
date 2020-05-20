@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.github.marcusadriano";
+
+service BrawlStars {
+    rpc GetPlayer(BSPlayerRequest) returns (Player);
+}
+
+message BSPlayerRequest {
+    string gameTag = 1;
+}
+
+message Player {
+    message Club {
+        string tag = 1;
+        string name = 2;
+    }
+
+    message StarPower {
+        string name = 1;
+        double id = 2;
+    }
+
+    message Brawler {
+        message Gadget {
+            string name = 2;
+            double id = 3;
+        }
+
+        repeated Gadget gadgets = 1;
+        double id = 2;
+        double rank = 3;
+        double trophies = 4;
+        double highestTrophies = 5;
+        double power = 6;
+        string name = 7;
+        repeated StarPower starPower = 8;
+    }
+
+    bool isQualifiedFromChampionshipChallenge = 1;
+    double threeVs3Victories = 2;
+    string tag = 3;
+    string name = 4;
+    double trophies = 5;
+    double expLevel = 6;
+    double expPoints = 7;
+    double highestTrophies = 8;
+    double powerPlayPoints = 9;
+    double highestPowerPlayPoints = 10;
+    double soloVictories = 11;
+    double duoVictories = 12;
+    double bestRoboRumbleTime = 13;
+    double bestTimeAsBigBrawler = 14;
+    repeated Brawler brawlers = 15;
+    string nameColor = 16;
+    Club club = 17;
+}
