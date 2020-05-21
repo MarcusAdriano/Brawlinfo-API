@@ -17,6 +17,8 @@ public class Config {
 
     // constants
     public static final String CONFIG_SERVER_PORT = "server.port";
+    public static final String CONFIG_BS_API_KEY = "bs.server.apikey";
+    public static final String CONFIG_BS_API_URL = "bs.server.apiUrl";
 
     public static Config getInstance() {
         if (INSTANCE == null) {
@@ -41,6 +43,14 @@ public class Config {
         } catch (NumberFormatException e) {
             return 8080;
         }
+    }
+
+    public String getBSApiUrl() {
+        return props.getProperty(CONFIG_BS_API_URL, "API_URL");
+    }
+
+    public String getBSApiKey() {
+        return props.getProperty(CONFIG_BS_API_KEY, "API_KEY");
     }
 
     private Properties readPropertiesFile() {
