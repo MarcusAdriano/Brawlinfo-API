@@ -12,53 +12,62 @@ message BSPlayerRequest {
 }
 
 message Player {
+
+    bool isQualifiedFromChampionshipChallenge = 1;
+    string tag = 2;
+    string name = 3;
+    double trophies = 4;
+    double expLevel = 5;
+    double expPoints = 6;
+    double highestTrophies = 7;
+    double powerPlayPoints = 8;
+    double highestPowerPlayPoints = 9;
+    double soloVictories = 10;
+    double duoVictories = 11;
+    double bestRoboRumbleTime = 12;
+    double bestTimeAsBigBrawler = 13;
+    bool success = 14;
+    double threeVs3Victories = 15;
+    repeated Brawler brawlers = 16;
+    string nameColor = 17;
+    Club club = 18;
+    ApiError error = 19;
+
     message Club {
         string tag = 1;
         string name = 2;
+    }
+
+    message ApiError {
+        string reason = 1;
+        string message = 2;
+        string type = 3;
+        Detail detail = 4;
+
+        message Detail {
+        }
+    }
+}
+
+message Brawler {
+
+    repeated StarPower starPowers = 1;
+
+    repeated Gadget gadgets = 2;
+    double id = 3;
+    double rank = 4;
+    double trophies = 5;
+    double highestTrophies = 6;
+    double power = 7;
+    string name = 8;
+
+    message Gadget {
+        string name = 1;
+        double id = 2;
     }
 
     message StarPower {
         string name = 1;
         double id = 2;
     }
-
-    message Brawler {
-        message Gadget {
-            string name = 2;
-            double id = 3;
-        }
-
-        repeated Gadget gadgets = 1;
-        double id = 2;
-        double rank = 3;
-        double trophies = 4;
-        double highestTrophies = 5;
-        double power = 6;
-        string name = 7;
-        repeated StarPower starPower = 8;
-    }
-
-    bool isQualifiedFromChampionshipChallenge = 1;
-    double threeVs3Victories = 2;
-    string tag = 3;
-    string name = 4;
-    double trophies = 5;
-    double expLevel = 6;
-    double expPoints = 7;
-    double highestTrophies = 8;
-    double powerPlayPoints = 9;
-    double highestPowerPlayPoints = 10;
-    double soloVictories = 11;
-    double duoVictories = 12;
-    double bestRoboRumbleTime = 13;
-    double bestTimeAsBigBrawler = 14;
-    repeated Brawler brawlers = 15;
-    string nameColor = 16;
-    Club club = 17;
-    BSErrorAPI error = 18;
-}
-
-message BSErrorAPI {
-    string body = 1;
-    int32 httpCode = 2;
 }

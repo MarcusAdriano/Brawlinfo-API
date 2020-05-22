@@ -46,6 +46,7 @@ dependencies {
     implementation 'io.grpc:grpc-stub:1.29.0'
     implementation 'com.squareup.retrofit2:retrofit:2.8.2'
     implementation 'com.squareup.retrofit2:converter-protobuf:2.8.2'
+    implementation 'org.json:json:20190722'
 
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
