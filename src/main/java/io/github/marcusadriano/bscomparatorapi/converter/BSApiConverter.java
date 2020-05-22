@@ -17,23 +17,6 @@ public class BSApiConverter extends Converter.Factory {
     @Nullable
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        return Json2ProtoConverter.INSTANCE;
-    }
-
-    final static class Json2ProtoConverter implements Converter<ResponseBody, Player> {
-        protected static final Json2ProtoConverter INSTANCE = new Json2ProtoConverter();
-
-        @Override
-        public Player convert(ResponseBody responseBody) throws IOException {
-            try {
-                JSONObject body = new JSONObject(responseBody.string());
-
-
-
-                return Player.newBuilder().build();
-            } catch (JSONException e) {
-                throw new IOException("Failed to parse JSON", e);
-            }
-        }
+        return Json2ProtoPlayerConverter.INSTANCE;
     }
 }
