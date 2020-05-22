@@ -12,7 +12,6 @@ message BSPlayerRequest {
 }
 
 message Player {
-
     bool isQualifiedFromChampionshipChallenge = 1;
     string tag = 2;
     string name = 3;
@@ -50,10 +49,9 @@ message Player {
 }
 
 message Brawler {
+    repeated Item starPowers = 1;
 
-    repeated StarPower starPowers = 1;
-
-    repeated Gadget gadgets = 2;
+    repeated Item gadgets = 2;
     double id = 3;
     double rank = 4;
     double trophies = 5;
@@ -61,12 +59,7 @@ message Brawler {
     double power = 7;
     string name = 8;
 
-    message Gadget {
-        string name = 1;
-        double id = 2;
-    }
-
-    message StarPower {
+    message Item {
         string name = 1;
         double id = 2;
     }

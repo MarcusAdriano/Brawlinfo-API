@@ -1,13 +1,16 @@
 package io.github.marcusadriano.bscomparatorapi.converter;
 
+import io.github.marcusadriano.Brawler;
 import io.github.marcusadriano.Player;
 import io.github.marcusadriano.utils.DataMass;
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -34,5 +37,39 @@ public class Json2ProtoPlayerConverterTest {
         assertEquals(player.getExpPoints(), 123284, 0);
         assertEquals(player.getTrophies(), 18731, 0);
         assertTrue(player.getSuccess());
+    }
+
+
+    @Test
+    public void player() {
+    }
+
+    @Test
+    public void brawlers() throws IOException {
+        JSONObject apiResponse = new JSONObject(DataMass.BS_API_RESPONSE);
+        Iterable<Brawler> brawlers = converter.brawlers(apiResponse);
+        assertNotNull(brawlers);
+        assertTrue(brawlers.iterator().hasNext());
+    }
+
+
+    @Test
+    public void club() {
+    }
+
+    @Test
+    public void error() {
+    }
+
+    @Test
+    public void items() {
+    }
+
+    @Test
+    public void testClub() {
+    }
+
+    @Test
+    public void testError() {
     }
 }
