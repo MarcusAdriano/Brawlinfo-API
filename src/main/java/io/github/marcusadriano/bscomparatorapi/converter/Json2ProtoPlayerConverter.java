@@ -8,8 +8,6 @@ import org.json.JSONObject;
 import retrofit2.Converter;
 import retrofit2.internal.EverythingIsNonNull;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +35,12 @@ public class Json2ProtoPlayerConverter implements Converter<ResponseBody, Player
     public static final String GADGETS = "gadgets";
     public static final String POWER = "power";
     public static final String RANK = "rank";
+    public static final String CLUB = "club";
+
+    public static final String REASON = "reason";
+    public static final String MESSAGE = "message";
+    public static final String TYPE = "type";
+    public static final String JSON_PARSE_ERROR = "json.parse.error";
 
     Json2ProtoPlayerConverter() {}
 
@@ -55,15 +59,15 @@ public class Json2ProtoPlayerConverter implements Converter<ResponseBody, Player
 
     @Override
     public Player player(JSONObject bsApiResponse) {
-        Iterable<Brawler> brawlers = brawlers(bsApiResponse);
-        Player.Club club = club(bsApiResponse);
-
-        if (bsApiResponse.optString(TAG) == null) {
+        if (bsApiResponse.optString(TAG, null) == null) {
             return Player.newBuilder()
                     .setSuccess(false)
                     .setError(error(bsApiResponse))
-                .build();
+                    .build();
         }
+
+        Iterable<Brawler> brawlers = brawlers(bsApiResponse);
+        Player.Club club = club(bsApiResponse);
 
         return Player.newBuilder()
                 .setTag(bsApiResponse.optString(TAG))
@@ -123,7 +127,7 @@ public class Json2ProtoPlayerConverter implements Converter<ResponseBody, Player
 
     @Override
     public Player.Club club(JSONObject bsApiResponse) {
-        JSONObject club = bsApiResponse.getJSONObject("club");
+        JSONObject club = bsApiResponse.getJSONObject(CLUB);
         return Player.Club.newBuilder()
                 .setTag(club.optString(TAG))
                 .setName(club.optString(NAME))
@@ -133,18 +137,17 @@ public class Json2ProtoPlayerConverter implements Converter<ResponseBody, Player
     @Override
     public Player.ApiError error(JSONObject bsApiResponse) {
         return Player.ApiError.newBuilder()
-                .setReason(bsApiResponse.optString("reason"))
-                .setMessage(bsApiResponse.optString("message"))
-                .setType(bsApiResponse.optString("type"))
+                .setReason(bsApiResponse.optString(REASON))
+                .setMessage(bsApiResponse.optString(MESSAGE))
+                .setType(bsApiResponse.optString(TYPE))
             .build();
     }
 
     @Override
     public Player.ApiError error(Exception ex, ResponseBody responseBody) {
        return Player.ApiError.newBuilder()
-               .setType("JSON_PARSE_ERROR")
                .setMessage(ex.getMessage())
-               .setReason(Arrays.toString(ex.getStackTrace()))
+               .setReason(JSON_PARSE_ERROR)
            .build();
     }
 }

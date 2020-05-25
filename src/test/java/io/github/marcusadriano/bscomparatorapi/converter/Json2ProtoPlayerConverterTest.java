@@ -16,20 +16,28 @@ import static org.junit.Assert.*;
 
 public class Json2ProtoPlayerConverterTest {
 
+    private static final String ACCESS_DENIED_INVALID_IP = "accessDenied.invalidIp";
+    private static final String APPLICATION_JSON = "application/json";
+    private static final String ZEC0MEIA = "ZEC0MEIA";
+    private static final String ZEC0MEIA_TAG = "#9UV9UG9J";
+    private static final String CLUB_TAG = "#YRYL9U8U";
+    private static final String CLUB_NAME = "Clube maneiro";
+    private static final String INVALID_JSON = "{...}";
+
     private ResponseBody response;
     private final Json2ProtoPlayerConverter converter = new Json2ProtoPlayerConverter();
 
     @Before
     public void setUp() throws Exception {
-        response = ResponseBody.create(MediaType.parse("application/json"), DataMass.BS_API_RESPONSE);
+        response = ResponseBody.create(MediaType.parse(APPLICATION_JSON), DataMass.BS_API_RESPONSE);
     }
 
     @Test
     public void convertTest() throws IOException {
         Player player = converter.convert(response);
         assertNotNull(player);
-        assertEquals("ZEC0MEIA", player.getName());
-        assertEquals("#9UV9UG9J", player.getTag());
+        assertEquals(ZEC0MEIA, player.getName());
+        assertEquals(ZEC0MEIA_TAG, player.getTag());
         assertTrue(player.getBrawlersCount() > 0);
         assertNotNull(player.getClub());
         assertEquals(player.getBestRoboRumbleTime(), 0, 0);
@@ -44,8 +52,8 @@ public class Json2ProtoPlayerConverterTest {
     public void playerTest() throws IOException {
         Player player = converter.convert(response);
         assertNotNull(player);
-        assertEquals("ZEC0MEIA", player.getName());
-        assertEquals("#9UV9UG9J", player.getTag());
+        assertEquals(ZEC0MEIA, player.getName());
+        assertEquals(ZEC0MEIA_TAG, player.getTag());
         assertTrue(player.getBrawlersCount() > 0);
         assertNotNull(player.getClub());
         assertEquals(player.getBestRoboRumbleTime(), 0, 0);
@@ -67,20 +75,24 @@ public class Json2ProtoPlayerConverterTest {
     public void clubTest() throws IOException {
         JSONObject jsonObject = new JSONObject(response.string());
         Player.Club club = converter.club(jsonObject);
-        assertEquals("#YRYL9U8U", club.getTag());
-        assertEquals("Clube maneiro", club.getName());
+        assertEquals(CLUB_TAG, club.getTag());
+        assertEquals(CLUB_NAME, club.getName());
     }
 
     @Test
     public void genericErrorTest() {
-        response = ResponseBody.create(MediaType.parse("application/json"), "{...}");
+        response = ResponseBody.create(MediaType.parse(APPLICATION_JSON), INVALID_JSON);
         Player player = converter.convert(response);
         assertFalse(player.getSuccess());
+        assertEquals(Json2ProtoPlayerConverter.JSON_PARSE_ERROR, player.getError().getReason());
     }
 
     @Test
     public void errorTest() {
-
+        response = ResponseBody.create(MediaType.parse(APPLICATION_JSON), DataMass.BS_API_ERROR_RESPONSE);
+        Player player = converter.convert(response);
+        assertFalse(player.getSuccess());
+        assertEquals(ACCESS_DENIED_INVALID_IP, player.getError().getReason());
     }
 
     @Test

@@ -2,6 +2,11 @@ package io.github.marcusadriano.utils;
 
 public class DataMass {
 
+    public static final String BS_API_ERROR_RESPONSE = "{\n" +
+            "    \"reason\": \"accessDenied.invalidIp\",\n" +
+            "    \"message\": \"Invalid authorization: API key does not allow access from IP 186.210.18.10\"\n" +
+            "}";
+
     public static final String BS_API_RESPONSE = "{\n" +
             "  \"tag\": \"#9UV9UG9J\",\n" +
             "  \"name\": \"ZEC0MEIA\",\n" +
