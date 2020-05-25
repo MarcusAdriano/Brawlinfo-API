@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -84,7 +83,7 @@ public class Json2ProtoPlayerConverterTest {
         response = ResponseBody.create(MediaType.parse(APPLICATION_JSON), INVALID_JSON);
         Player player = converter.convert(response);
         assertFalse(player.getSuccess());
-        assertEquals(Json2ProtoPlayerConverter.JSON_PARSE_ERROR, player.getError().getReason());
+        assertEquals(Json2ProtoPlayerConverter.KEY_ERROR_JSON_PARSE_ERROR, player.getError().getReason());
     }
 
     @Test
