@@ -2,6 +2,7 @@ plugins {
     id 'application'
     id 'idea'
     id 'com.google.protobuf' version '0.8.8'
+    id 'jacoco'
 }
 
 protobuf {
@@ -40,6 +41,14 @@ repositories {
     mavenCentral()
 }
 
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+    dependsOn test
+}
+
 dependencies {
     implementation 'io.grpc:grpc-netty-shaded:1.29.0'
     implementation 'io.grpc:grpc-protobuf:1.29.0'
@@ -53,5 +62,4 @@ dependencies {
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
-
 }
