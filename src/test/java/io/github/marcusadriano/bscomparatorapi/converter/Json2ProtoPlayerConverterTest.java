@@ -25,7 +25,7 @@ public class Json2ProtoPlayerConverterTest {
     }
 
     @Test
-    public void convert() throws IOException {
+    public void convertTest() throws IOException {
         Player player = converter.convert(response);
         assertNotNull(player);
         assertEquals("ZEC0MEIA", player.getName());
@@ -41,35 +41,49 @@ public class Json2ProtoPlayerConverterTest {
 
 
     @Test
-    public void player() {
+    public void playerTest() throws IOException {
+        Player player = converter.convert(response);
+        assertNotNull(player);
+        assertEquals("ZEC0MEIA", player.getName());
+        assertEquals("#9UV9UG9J", player.getTag());
+        assertTrue(player.getBrawlersCount() > 0);
+        assertNotNull(player.getClub());
+        assertEquals(player.getBestRoboRumbleTime(), 0, 0);
+        assertEquals(player.getBestTimeAsBigBrawler(), 0, 0);
+        assertEquals(player.getExpPoints(), 123284, 0);
+        assertEquals(player.getTrophies(), 18731, 0);
+        assertTrue(player.getSuccess());
     }
 
     @Test
-    public void brawlers() throws IOException {
+    public void brawlersTest() throws IOException {
         JSONObject apiResponse = new JSONObject(DataMass.BS_API_RESPONSE);
         Iterable<Brawler> brawlers = converter.brawlers(apiResponse);
         assertNotNull(brawlers);
         assertTrue(brawlers.iterator().hasNext());
     }
 
-
     @Test
-    public void club() {
+    public void clubTest() throws IOException {
+        JSONObject jsonObject = new JSONObject(response.string());
+        Player.Club club = converter.club(jsonObject);
+        assertEquals("#YRYL9U8U", club.getTag());
+        assertEquals("Clube maneiro", club.getName());
     }
 
     @Test
-    public void error() {
+    public void genericErrorTest() {
+        response = ResponseBody.create(MediaType.parse("application/json"), "{...}");
+        Player player = converter.convert(response);
+        assertFalse(player.getSuccess());
+    }
+
+    @Test
+    public void errorTest() {
+
     }
 
     @Test
     public void items() {
-    }
-
-    @Test
-    public void testClub() {
-    }
-
-    @Test
-    public void testError() {
     }
 }

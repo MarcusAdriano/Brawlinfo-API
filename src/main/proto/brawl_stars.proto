@@ -15,18 +15,18 @@ message Player {
     bool isQualifiedFromChampionshipChallenge = 1;
     string tag = 2;
     string name = 3;
-    double trophies = 4;
-    double expLevel = 5;
-    double expPoints = 6;
-    double highestTrophies = 7;
-    double powerPlayPoints = 8;
-    double highestPowerPlayPoints = 9;
-    double soloVictories = 10;
-    double duoVictories = 11;
-    double bestRoboRumbleTime = 12;
-    double bestTimeAsBigBrawler = 13;
+    int64 trophies = 4;
+    int64 expLevel = 5;
+    int64 expPoints = 6;
+    int64 highestTrophies = 7;
+    int64 powerPlayPoints = 8;
+    int64 highestPowerPlayPoints = 9;
+    int64 soloVictories = 10;
+    int64 duoVictories = 11;
+    int64 bestRoboRumbleTime = 12;
+    int64 bestTimeAsBigBrawler = 13;
     bool success = 14;
-    double threeVs3Victories = 15;
+    int64 threeVs3Victories = 15;
     repeated Brawler brawlers = 16;
     string nameColor = 17;
     Club club = 18;
@@ -52,15 +52,15 @@ message Brawler {
     repeated Item starPowers = 1;
 
     repeated Item gadgets = 2;
-    double id = 3;
-    double rank = 4;
-    double trophies = 5;
-    double highestTrophies = 6;
-    double power = 7;
+    int64 id = 3;
+    int64 rank = 4;
+    int64 trophies = 5;
+    int64 highestTrophies = 6;
+    int64 power = 7;
     string name = 8;
 
     message Item {
         string name = 1;
-        double id = 2;
+        int64 id = 2;
     }
 }
