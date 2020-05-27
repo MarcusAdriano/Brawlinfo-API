@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class Json2ProtoPlayerConverter implements Converter<ResponseBody, Player>, ProtoPlayerConverter {
 
-    protected static final Json2ProtoPlayerConverter INSTANCE = new Json2ProtoPlayerConverter();
+    public static final Json2ProtoPlayerConverter INSTANCE = new Json2ProtoPlayerConverter();
     public static final String KEY_ID = "id";
     public static final String KEY_TAG = "tag";
     public static final String KEY_NAME = "name";

@@ -5,6 +5,7 @@ import io.github.marcusadriano.BrawlStarsGrpc;
 import io.github.marcusadriano.Player;
 import io.github.marcusadriano.bscomparatorapi.Config;
 import io.github.marcusadriano.bscomparatorapi.converter.BSApiConverter;
+import io.github.marcusadriano.bscomparatorapi.converter.Json2ProtoPlayerConverter;
 import io.github.marcusadriano.bscomparatorapi.service.BrawlStarsService;
 import io.grpc.stub.StreamObserver;
 import lombok.SneakyThrows;
@@ -40,7 +41,12 @@ public final class BrawlStarsServiceImpl extends BrawlStarsGrpc.BrawlStarsImplBa
             @Override
             public void onResponse(Call<Player> call, Response<Player> response) {
                 log.info(String.format("BS API Response --> HTTP(%d)", response.code()));
-                responseObserver.onNext(response.body());
+                if (!response.isSuccessful()) {
+                    Player p = Json2ProtoPlayerConverter.INSTANCE.convert(response.errorBody());
+                    responseObserver.onNext(p);
+                } else {
+                    responseObserver.onNext(response.body());
+                }
                 responseObserver.onCompleted();
             }
 
