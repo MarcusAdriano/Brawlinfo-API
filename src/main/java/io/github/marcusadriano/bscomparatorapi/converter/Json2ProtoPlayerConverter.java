@@ -93,7 +93,7 @@ public class Json2ProtoPlayerConverter implements Converter<ResponseBody, Player
     @Override
     public List<Brawler.Item> items(JSONArray bsBrawlerStarPowers) {
         return bsBrawlerStarPowers.toList().stream()
-                .map((spJsonObject) -> {
+                .map(spJsonObject -> {
                     JSONObject startPowerJson = new JSONObject((HashMap) spJsonObject);
                     return Brawler.Item.newBuilder()
                             .setId(startPowerJson.optInt(KEY_ID))
@@ -106,7 +106,7 @@ public class Json2ProtoPlayerConverter implements Converter<ResponseBody, Player
     public Iterable<Brawler> brawlers(JSONObject bsApiResponse) {
         JSONArray jsonArray = bsApiResponse.getJSONArray(KEY_BRAWLERS);
         return jsonArray.toList().stream()
-                .map((jsonObject) -> {
+                .map(jsonObject -> {
                     JSONObject brawlerJson = new JSONObject((HashMap) jsonObject);
 
                     Iterable<Brawler.Item> starPowers = items(brawlerJson.getJSONArray(KEY_STAR_POWERS));
