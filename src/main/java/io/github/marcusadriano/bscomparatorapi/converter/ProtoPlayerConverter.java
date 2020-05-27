@@ -6,8 +6,6 @@ import okhttp3.ResponseBody;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.List;
-
 public interface ProtoPlayerConverter {
     Player player(JSONObject bsApiResponse);
     Iterable<Brawler> brawlers(JSONObject bsApiResponse);

@@ -1,6 +1,5 @@
 package io.github.marcusadriano.bscomparatorapi;
 
-import io.github.marcusadriano.bscomparatorapi.converter.Json2ProtoPlayerConverter;
 import lombok.Getter;
 
 import java.io.IOException;

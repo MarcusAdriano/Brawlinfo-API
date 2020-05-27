@@ -2,6 +2,7 @@ package io.github.marcusadriano.bscomparatorapi.converter;
 
 import io.github.marcusadriano.Brawler;
 import io.github.marcusadriano.Player;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.ResponseBody;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class Json2ProtoPlayerConverter implements Converter<ResponseBody, Player>, ProtoPlayerConverter {
 
     protected static final Json2ProtoPlayerConverter INSTANCE = new Json2ProtoPlayerConverter();

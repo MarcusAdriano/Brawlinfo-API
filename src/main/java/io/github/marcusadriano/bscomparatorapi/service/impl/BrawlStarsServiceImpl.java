@@ -39,7 +39,7 @@ public final class BrawlStarsServiceImpl extends BrawlStarsGrpc.BrawlStarsImplBa
             @SneakyThrows
             @Override
             public void onResponse(Call<Player> call, Response<Player> response) {
-                log.info(String.format("BS API Response --> HTTP(%d) -> %s", response.code(), response.raw().body().string()));
+                log.info(String.format("BS API Response --> HTTP(%d)", response.code()));
                 responseObserver.onNext(response.body());
                 responseObserver.onCompleted();
             }
