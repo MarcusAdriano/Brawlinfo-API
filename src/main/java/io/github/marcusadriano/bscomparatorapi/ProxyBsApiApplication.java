@@ -24,7 +24,7 @@ public class ProxyBsApiApplication {
             log.info("*** server shut down");
         }));
 
-        log.info("*** server started :" + serverConfig.getServerPort());
+        log.info("*** server started: " + serverConfig.getServerPort());
         server.awaitTermination();
     }
 

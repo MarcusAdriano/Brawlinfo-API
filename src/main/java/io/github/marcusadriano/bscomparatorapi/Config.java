@@ -54,8 +54,12 @@ public class Config {
     }
 
     public String get(String key, String defaultValue) {
-        return Optional.ofNullable(System.getenv(CONFIG_SERVER_PORT))
-                .orElse(props.getProperty(CONFIG_SERVER_PORT, defaultValue));
+        return Optional.ofNullable(System.getenv(getEnvKey(key)))
+                .orElse(props.getProperty(key, defaultValue));
+    }
+
+    public String getEnvKey(String key) {
+        return key.replaceAll("\\.", "_").toUpperCase().trim();
     }
 
     private Properties readPropertiesFile() {
