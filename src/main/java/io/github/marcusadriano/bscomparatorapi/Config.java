@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 import java.util.Properties;
 
 @Getter
@@ -37,18 +38,24 @@ public class Config {
 
     public int getServerPort() {
         try {
-            return Integer.parseInt(props.getProperty(CONFIG_SERVER_PORT, "8080"));
+            String port = get(CONFIG_SERVER_PORT, "8080");
+            return Integer.parseInt(port);
         } catch (NumberFormatException e) {
             return 8080;
         }
     }
 
     public String getBSApiUrl() {
-        return props.getProperty(CONFIG_BS_API_URL, "API_URL");
+        return get(CONFIG_BS_API_URL, "API_URL");
     }
 
     public String getBSApiKey() {
-        return props.getProperty(CONFIG_BS_API_KEY, "API_KEY");
+        return get(CONFIG_BS_API_KEY, "API_KEY");
+    }
+
+    public String get(String key, String defaultValue) {
+        return Optional.ofNullable(System.getenv(CONFIG_SERVER_PORT))
+                .orElse(props.getProperty(CONFIG_SERVER_PORT, defaultValue));
     }
 
     private Properties readPropertiesFile() {
