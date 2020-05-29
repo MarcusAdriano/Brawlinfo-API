@@ -94,3 +94,8 @@ atlassian-ide-plugin.xml
 # oh-my-zsh gradle plugin
 .gradletasknamecache
 logs/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

@@ -1,6 +1,6 @@
 FROM openjdk:8-alpine
-COPY build/install/bscomparatorapi /home/bscomparatorapi
-WORKDIR /home/bscomparatorapi
+COPY build/install/bscomparatorapi /var/app
+WORKDIR /var/app
 
 EXPOSE 8080
 
