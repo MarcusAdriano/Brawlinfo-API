@@ -1,0 +1,3 @@
+FROM marcusadriano/proxy-bs-api:0.0.1
+
+EXPOSE 8080
