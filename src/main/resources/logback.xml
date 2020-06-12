@@ -9,33 +9,44 @@
 <!--                                                                -->
 <configuration>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}: %msg%n</pattern>
-        </encoder>
-    </appender>
+    <property name="LOG_FILE" value="proxy-bs-api" />
+    <property name="LOG_DIR" value="logs" />
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${LOG_FILE}.log</file>
+        <append>true</append>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- Daily rollover -->
-            <fileNamePattern>logs/proxy-bs-api.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
 
-            <!-- Keep 7 days' worth of history -->
-            <maxHistory>7</maxHistory>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
         </rollingPolicy>
 
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}: %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <logger name="io.github.marcusadriano" level="DEBUG"></logger>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] - %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
 
-    <!-- Configure so that it outputs to both console and log file -->
-    <root level="INFO">
+    <logger name="io.grpc" level="DEBUG">
         <appender-ref ref="FILE" />
-    </root>
-    <root level="DEBUG">
+    </logger>
+
+    <logger name="io.github.marcusadriano" level="DEBUG">
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>
+
 </configuration>

@@ -53,6 +53,8 @@ jacocoTestReport {
 }
 
 dependencies {
+    implementation 'com.googlecode.protobuf-java-format:protobuf-java-format:1.4'
+
     implementation 'io.grpc:grpc-netty-shaded:1.29.0'
     implementation 'io.grpc:grpc-protobuf:1.29.0'
     implementation 'io.grpc:grpc-stub:1.29.0'

@@ -1,5 +1,6 @@
 package io.github.marcusadriano.bscomparatorapi.service.impl;
 
+import com.googlecode.protobuf.format.JsonFormat;
 import io.github.marcusadriano.BSPlayerRequest;
 import io.github.marcusadriano.BrawlStarsGrpc;
 import io.github.marcusadriano.Player;
@@ -16,7 +17,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 @Slf4j
-public final class BrawlStarsServiceImpl extends BrawlStarsGrpc.BrawlStarsImplBase {
+public class BrawlStarsServiceImpl extends BrawlStarsGrpc.BrawlStarsImplBase {
 
     private final BrawlStarsService bsService;
     private final Config config;
@@ -35,16 +36,18 @@ public final class BrawlStarsServiceImpl extends BrawlStarsGrpc.BrawlStarsImplBa
 
     @Override
     public void getPlayer(BSPlayerRequest request, StreamObserver<Player> responseObserver) {
+        log.info("Entry getPlayer() --> Request for user: {}", request.getGameTag());
         bsService.player(authHeader, request.getGameTag()).enqueue(new Callback<Player>() {
 
-            @SneakyThrows
             @Override
             public void onResponse(Call<Player> call, Response<Player> response) {
-                log.info(String.format("BS API Response --> HTTP(%d)", response.code()));
+                log.info("BS API Code: {}, Headers: {}", response.code(), response.headers().toString());
                 if (!response.isSuccessful()) {
                     Player p = Json2ProtoPlayerConverter.INSTANCE.convert(response.errorBody());
                     responseObserver.onNext(p);
+                    log.info("Exit getPlayer() <-- Body size: {}", p.getSerializedSize());
                 } else {
+                    log.info("Exit getPlayer() <-- Body size: {}", response.body().getSerializedSize());
                     responseObserver.onNext(response.body());
                 }
                 responseObserver.onCompleted();
