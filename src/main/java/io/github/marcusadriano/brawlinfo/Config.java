@@ -1,4 +1,4 @@
-package io.github.marcusadriano.bscomparatorapi;
+package io.github.marcusadriano.brawlinfo;
 
 import lombok.Getter;
 

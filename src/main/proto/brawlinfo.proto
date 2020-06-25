@@ -1,17 +1,36 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "io.github.marcusadriano";
+option java_package = "io.github.marcusadriano.brawlinfo";
 
-service BrawlStars {
-    rpc GetPlayer(BSPlayerRequest) returns (Player);
+service BrawlinfoService {
+    rpc GetPlayer(BiPlayerRequest) returns (BiPlayerResponse);
 }
 
-message BSPlayerRequest {
+message BiPlayerRequest {
     string gameTag = 1;
 }
 
-message Player {
+message BiPlayerResponse {
+    bool success = 1;
+    int32 status = 2;
+    oneof content {
+        BiPlayer player = 3;
+        BiError error = 4;
+    }
+}
+
+message BiError {
+    string reason = 2;
+    string message = 3;
+    string type = 4;
+    Detail detail = 5;
+
+    message Detail {
+    }
+}
+
+message BiPlayer {
     bool isQualifiedFromChampionshipChallenge = 1;
     string tag = 2;
     string name = 3;
@@ -25,32 +44,19 @@ message Player {
     int64 duoVictories = 11;
     int64 bestRoboRumbleTime = 12;
     int64 bestTimeAsBigBrawler = 13;
-    bool success = 14;
-    int64 threeVs3Victories = 15;
-    repeated Brawler brawlers = 16;
-    string nameColor = 17;
-    Club club = 18;
-    ApiError error = 19;
+    int64 threeVs3Victories = 14;
+    repeated BiBrawler brawlers = 15;
+    string nameColor = 16;
+    Club club = 17;
 
     message Club {
         string tag = 1;
         string name = 2;
     }
-
-    message ApiError {
-        string reason = 1;
-        string message = 2;
-        string type = 3;
-        Detail detail = 4;
-
-        message Detail {
-        }
-    }
 }
 
-message Brawler {
+message BiBrawler {
     repeated Item starPowers = 1;
-
     repeated Item gadgets = 2;
     int64 id = 3;
     int64 rank = 4;

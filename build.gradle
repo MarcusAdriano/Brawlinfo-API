@@ -1,8 +1,13 @@
 plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
     id 'application'
     id 'idea'
     id 'com.google.protobuf' version '0.8.8'
     id 'jacoco'
+}
+
+repositories {
+    mavenLocal()
 }
 
 protobuf {
@@ -21,8 +26,8 @@ protobuf {
     }
 }
 
-group 'io.github.marcusadriano'
-version '0.0.1'
+group 'io.github.marcusadriano.brawlstars'
+version '0.1'
 
 mainClassName = 'io.github.marcusadriano.bscomparatorapi.ProxyBsApiApplication'
 
@@ -38,6 +43,14 @@ sourceSets {
 sourceCompatibility = 1.8
 
 repositories {
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/MarcusAdriano/BrawlStars-SDK")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+        }
+    }
     mavenCentral()
 }
 
@@ -53,6 +66,11 @@ jacocoTestReport {
 }
 
 dependencies {
+    implementation 'io.github.marcusadriano.brawlstars:brawlstars-sdk:0.1-SNAPSHOT'
+
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7'
+
     implementation 'com.googlecode.protobuf-java-format:protobuf-java-format:1.4'
 
     implementation 'io.grpc:grpc-netty-shaded:1.29.0'
