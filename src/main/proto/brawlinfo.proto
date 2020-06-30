@@ -1,10 +1,14 @@
 syntax = "proto3";
 
+import "google/api/annotations.proto";
+
 option java_multiple_files = true;
 option java_package = "io.github.marcusadriano.brawlinfo";
 
 service BrawlinfoService {
-    rpc GetPlayer(BiPlayerRequest) returns (BiPlayerResponse);
+    rpc GetPlayer(BiPlayerRequest) returns (BiPlayerResponse) {
+        option (google.api.http) = {get: "/v1/players/{gameTag}" };
+    }
 }
 
 message BiPlayerRequest {
@@ -12,11 +16,9 @@ message BiPlayerRequest {
 }
 
 message BiPlayerResponse {
-    bool success = 1;
-    int32 status = 2;
     oneof content {
-        BiPlayer player = 3;
-        BiError error = 4;
+        BiPlayer player = 1;
+        BiError error = 2;
     }
 }
 
@@ -24,27 +26,23 @@ message BiError {
     string reason = 2;
     string message = 3;
     string type = 4;
-    Detail detail = 5;
-
-    message Detail {
-    }
 }
 
 message BiPlayer {
     bool isQualifiedFromChampionshipChallenge = 1;
     string tag = 2;
     string name = 3;
-    int64 trophies = 4;
+    int32 trophies = 4;
     int64 expLevel = 5;
     int64 expPoints = 6;
-    int64 highestTrophies = 7;
-    int64 powerPlayPoints = 8;
-    int64 highestPowerPlayPoints = 9;
-    int64 soloVictories = 10;
-    int64 duoVictories = 11;
-    int64 bestRoboRumbleTime = 12;
-    int64 bestTimeAsBigBrawler = 13;
-    int64 threeVs3Victories = 14;
+    int32 highestTrophies = 7;
+    int32 powerPlayPoints = 8;
+    int32 highestPowerPlayPoints = 9;
+    int32 soloVictories = 10;
+    int32 duoVictories = 11;
+    int32 bestRoboRumbleTime = 12;
+    int32 bestTimeAsBigBrawler = 13;
+    int32 threeVs3Victories = 14;
     repeated BiBrawler brawlers = 15;
     string nameColor = 16;
     Club club = 17;
@@ -58,15 +56,15 @@ message BiPlayer {
 message BiBrawler {
     repeated Item starPowers = 1;
     repeated Item gadgets = 2;
-    int64 id = 3;
-    int64 rank = 4;
-    int64 trophies = 5;
-    int64 highestTrophies = 6;
-    int64 power = 7;
+    int32 id = 3;
+    int32 rank = 4;
+    int32 trophies = 5;
+    int32 highestTrophies = 6;
+    int32 power = 7;
     string name = 8;
 
     message Item {
         string name = 1;
-        int64 id = 2;
+        int32 id = 2;
     }
 }
