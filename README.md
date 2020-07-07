@@ -1,6 +1,6 @@
 ## Brawl Stars Comparator API
 
-[![Build Status](https://travis-ci.com/MarcusAdriano/brawlstars_comparator_api.svg?branch=master)](https://travis-ci.com/MarcusAdriano/brawlstars_comparator_api)
+[![Build Status](https://travis-ci.com/MarcusAdriano/Brawlinfo-API.svg?branch=master)](https://travis-ci.com/MarcusAdriano/Brawlinfo-API)
 [![codecov](https://codecov.io/gh/MarcusAdriano/brawlstars_comparator_api/branch/master/graph/badge.svg)](https://codecov.io/gh/MarcusAdriano/brawlstars_comparator_api)
 
 #### Technologies used:
