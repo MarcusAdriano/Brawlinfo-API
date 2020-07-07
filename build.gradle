@@ -7,7 +7,15 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
+    mavenCentral()
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/MarcusAdriano/BrawlStars-SDK")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+        }
+    }
 }
 
 protobuf {
@@ -27,7 +35,7 @@ protobuf {
 }
 
 group 'io.github.marcusadriano.brawlstars'
-version '0.1'
+version '0.2'
 
 mainClassName = 'io.github.marcusadriano.bscomparatorapi.ProxyBsApiApplication'
 
@@ -39,21 +47,6 @@ sourceSets {
         }
     }
 }
-
-sourceCompatibility = 1.8
-
-repositories {
-    maven {
-        name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/MarcusAdriano/BrawlStars-SDK")
-        credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-            password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-        }
-    }
-    mavenCentral()
-}
-
 test {
     finalizedBy jacocoTestReport
 }
