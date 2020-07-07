@@ -10,11 +10,13 @@ import io.github.marcusadriano.brawlstars.model.Player
 import io.github.marcusadriano.brawlstars.model.Result
 import io.github.marcusadriano.brawlstars.service.BrawlStarsService
 import io.grpc.stub.StreamObserver
+import mu.KotlinLogging
 
 class BrawlinfoGrpcService():
         BrawlinfoServiceGrpc.BrawlinfoServiceImplBase() {
 
     private val serviceApi: BrawlStarsService
+    private val logger = KotlinLogging.logger {}
 
     init {
         BrawlStars.setup(Config.getInstance().bsApiKey)
@@ -39,10 +41,13 @@ class BrawlinfoGrpcService():
     }
 
     override fun getPlayer(request: BiPlayerRequest?, responseObserver: StreamObserver<BiPlayerResponse>?) {
-        val result: Result<Player> = serviceApi.player(request!!.gameTag)
-        responseObserver?.let {
-            it.onNext(getPlayerResponse(result))
-            it.onCompleted()
+        request?.let {
+            logger.info { "Request= ${request.toString().replace("\n", "")}" }
+            val result: Result<Player> = serviceApi.player(it.gameTag)
+            responseObserver?.let {
+                it.onNext(getPlayerResponse(result))
+                it.onCompleted()
+            }
         }
     }
 }

@@ -66,6 +66,8 @@ jacocoTestReport {
 }
 
 dependencies {
+    implementation 'io.github.microutils:kotlin-logging:1.7.10'
+
     implementation 'io.github.marcusadriano.brawlstars:brawlstars-sdk:0.2'
 
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
