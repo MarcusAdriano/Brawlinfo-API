@@ -1,7 +1,7 @@
 FROM openjdk:8-alpine
-COPY build/install/bscomparatorapi /bsapp
+COPY build/install/brawlinfo-api /bsapp
 WORKDIR /bsapp
 
 EXPOSE 8080
 
-ENTRYPOINT ["./bin/bscomparatorapi"]
+ENTRYPOINT ["./bin/brawlinfo-api"]
