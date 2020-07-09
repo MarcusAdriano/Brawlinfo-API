@@ -1,0 +1,11 @@
+version: '2.0'
+services:
+  grpc:
+    image: marcusadriano/proxy-bs-api:0.2
+    ports:
+      - "80:9090"
+    volumes:
+      - /path/to/logs:/bsapp/logs
+    environment:
+      - TZ=America/Sao_Paulo
+      - BS_SERVER_APIKEY=TOKEN FROM https://developer.brawlstars.com/

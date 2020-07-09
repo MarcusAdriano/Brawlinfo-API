@@ -37,7 +37,7 @@ protobuf {
 group 'io.github.marcusadriano.brawlstars'
 version '0.2'
 
-mainClassName = 'io.github.marcusadriano.bscomparatorapi.ProxyBsApiApplication'
+mainClassName = 'io.github.marcusadriano.brawlinfo.ProxyBsApiApplication'
 
 sourceSets {
     main {
